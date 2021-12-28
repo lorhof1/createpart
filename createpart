@@ -1,0 +1,14 @@
+#!/bin/bash
+# createpart by lorhof1 utilizes fdisk to create partitions in free space of a specific or the maximal free space
+# usage: createpart [block device, e.g. /dev/sda] [desired size in megabytes, not required, e.g. 2]
+# this script must be run as root
+# this script is licensed under the GNU GPL v3
+# this script has no protection whatsoever against wrong usage. use at your own risk
+
+echo fdisk $1
+if [ $# -eq 2 ]
+then
+	fdisk $1 <<< $'n\n\n\n+'$2$'M\nw\n'
+else
+	fdisk $1 <<< $'n\n\n\n\nw\n'
+fi
